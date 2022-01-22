@@ -7,7 +7,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.contains;
 
 public class Pet {
     // Endereço da entidade pet
@@ -32,6 +34,9 @@ public class Pet {
                 .log().all()
                 .statusCode(200)
                 .body("name", is("Bob"))
-                .body("status", is("available"));
+                .body("status", is("available"))
+                .body("tags.name", contains("vacinado"))
+                .body("category.name", is("Dog"))
+                .body("category.name", containsString("Dog"));
     }
 }
