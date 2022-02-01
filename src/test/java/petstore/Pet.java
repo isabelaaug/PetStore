@@ -40,7 +40,7 @@ public class Pet {
                 .body("category.name", containsString("Dog"));
     }
 
-    //GET
+    // GET
     @Test(priority = 2)
     public void consultarPet(){
         String petId = "199678586521548500";
@@ -60,5 +60,23 @@ public class Pet {
                 .path("category.name");
 
         System.out.println("o token é " + token);
+    }
+
+    // PUT
+    @Test(priority = 3)
+    public void alterarPet() throws IOException {
+        String jsonBody = lerJson("src/test/resources/db/pet2.json");
+
+        given()
+                .contentType("application/json")
+                .log().all()
+                .body(jsonBody)
+        .when()
+                .put(uri)
+       .then()
+                .log().all()
+                .statusCode(200)
+                .body("name", is("Bob"))
+                .body("status", is("unavailable"));
     }
 }

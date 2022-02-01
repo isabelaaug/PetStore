@@ -1,0 +1,18 @@
+{
+  "id": 199678586521548500,
+  "category": {
+    "id": 1,
+    "name": "Dog"
+  },
+  "name": "Bob",
+  "photoUrls": [
+    "string"
+  ],
+  "tags": [
+    {
+      "id": 20,
+      "name": "vacinado"
+    }
+  ],
+  "status": "unavailable"
+}
