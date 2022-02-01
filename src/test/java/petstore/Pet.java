@@ -12,7 +12,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.contains;
 
 public class Pet {
-    // EndereÃ§o da entidade pet
+    // Endereço da entidade pet
     String uri = "https://petstore.swagger.io/v2/pet";
 
     public String lerJson(String caminhoJson) throws IOException {
@@ -20,7 +20,7 @@ public class Pet {
     }
 
     // POST
-    @Test
+    @Test(priority = 1)
     public void incluirPet() throws IOException {
         String jsonBody = lerJson("src/test/resources/db/pet1.json");
 
@@ -38,5 +38,27 @@ public class Pet {
                 .body("tags.name", contains("vacinado"))
                 .body("category.name", is("Dog"))
                 .body("category.name", containsString("Dog"));
+    }
+
+    //GET
+    @Test(priority = 2)
+    public void consultarPet(){
+        String petId = "199678586521548500";
+
+        String token =
+        given()
+                .contentType("application/json")
+                .log().all()
+        .when()
+                .get(uri + "/" + petId)
+        .then()
+                .log().all()
+                .statusCode(200)
+                .body("name", is("Bob"))
+                .body("status", is("available"))
+        .extract()
+                .path("category.name");
+
+        System.out.println("o token é " + token);
     }
 }
